@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2018 Patrizio Bekerle -- http://www.bekerle.com
+ * Copyright (c) 2014-2020 Patrizio Bekerle -- <patrizio@bekerle.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+    ui(new Ui::MainWindow) {
     ui->setupUi(this);
 }
 

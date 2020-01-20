@@ -2,10 +2,11 @@
 [![Build Status Linux/OS X](https://travis-ci.org/pbek/qmarkdowntextedit.svg?branch=develop)](https://travis-ci.org/pbek/qmarkdowntextedit)
 [![Build Status Windows](https://ci.appveyor.com/api/projects/status/github/pbek/qmarkdowntextedit)](https://ci.appveyor.com/project/pbek/qmarkdowntextedit)
 
-QMarkdownTextEdit is a C++ Qt [QPlainTextEdit](http://doc.qt.io/qt-5/qtextplainedit.html) widget with [markdown](https://en.wikipedia.org/wiki/Markdown) highlighting and some other goodies.
+QMarkdownTextEdit is a C++ Qt [QPlainTextEdit](http://doc.qt.io/qt-5/qplaintextedit.html) widget with [markdown](https://en.wikipedia.org/wiki/Markdown) highlighting and some other goodies.
 
 ## Features
 - markdown highlighting
+- syntax highlighting
 - clickable links with `Ctrl + Click`
 - block indent with `Tab` and `Shift + Tab`
 - duplicate text with `Ctrl + Alt + Down`
@@ -25,7 +26,7 @@ QMarkdownTextEdit is a C++ Qt [QPlainTextEdit](http://doc.qt.io/qt-5/qtextplaine
 - add a normal `QPlainTextEdit` to your UI and promote it to `QMarkdownTextEdit` (base class `QPlainTextEdit`)
 
 ## References
-- [QOwnNotes - cross-platform open source plain-text file notepad](http://www.qownnotes.org)
+- [QOwnNotes - cross-platform open source plain-text file markdown note taking](http://www.qownnotes.org)
 
 ## Disclaimer
 This SOFTWARE PRODUCT is provided by THE PROVIDER "as is" and "with all faults." THE PROVIDER makes no representations or warranties of any kind concerning the safety, suitability, lack of viruses, inaccuracies, typographical errors, or other harmful components of this SOFTWARE PRODUCT. 

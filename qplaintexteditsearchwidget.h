@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2018 Patrizio Bekerle -- http://www.bekerle.com
+ * Copyright (c) 2014-2020 Patrizio Bekerle -- <patrizio@bekerle.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,13 +32,18 @@ public:
         RegularExpressionMode
     };
 
-    explicit QPlainTextEditSearchWidget(QPlainTextEdit *parent = 0);
+    explicit QPlainTextEditSearchWidget(QPlainTextEdit *parent = nullptr);
     bool doSearch(bool searchDown = true, bool allowRestartAtTop = true);
     void setDarkMode(bool enabled);
     ~QPlainTextEditSearchWidget();
+    void setSearchText(QString &searchText);
+    void setSearchMode(SearchMode searchMode);
+    void activate(bool focus);
 
 private:
     Ui::QPlainTextEditSearchWidget *ui;
+    int _searchResultCount;
+    int _currentSearchResult;
 
 protected:
     QPlainTextEdit *_textEdit;
@@ -54,7 +59,13 @@ public slots:
     void activateReplace();
     bool doReplace(bool forAll = false);
     void doReplaceAll();
+    void reset();
+    void doSearchCount();
 
 protected slots:
     void searchLineEditTextChanged(const QString &arg1);
+    void updateSearchCountLabelText();
+private slots:
+    void on_modeComboBox_currentIndexChanged(int index);
+    void on_matchCaseSensitiveButton_toggled(bool checked);
 };

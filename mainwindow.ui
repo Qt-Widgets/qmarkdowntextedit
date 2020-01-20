@@ -26,6 +26,7 @@
 ## Features
 
 - markdown highlighting
+- syntax highlighting
 - clickable links with `Ctrl + Click`
 - block indent with `Tab` and `Shift + Tab`
 - duplicate text with `Ctrl + Alt + Down`
@@ -36,7 +37,7 @@
 
 ## References
 
-- [QOwnNotes - cross-platform open source plain-text notepad](http://www.qownnotes.org)
+- [QOwnNotes - cross-platform open source plain-text file markdown note taking](http://www.qownnotes.org)
 
 ## Disclaimer
 
@@ -55,7 +56,7 @@ There are inherent dangers in the use of any software, and you are solely respon
      <x>0</x>
      <y>0</y>
      <width>1070</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

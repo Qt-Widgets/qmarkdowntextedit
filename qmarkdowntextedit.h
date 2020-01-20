@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2018 Patrizio Bekerle -- http://www.bekerle.com
+ * Copyright (c) 2014-2020 Patrizio Bekerle -- <patrizio@bekerle.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,9 @@
 
 #include <QPlainTextEdit>
 #include <QEvent>
-#include "markdownhighlighter.h"
 #include "qplaintexteditsearchwidget.h"
 
+class MarkdownHighlighter;
 
 class QMarkdownTextEdit : public QPlainTextEdit
 {
@@ -37,17 +37,22 @@ public:
 
     Q_DECLARE_FLAGS(AutoTextOptions, AutoTextOption)
 
-    explicit QMarkdownTextEdit(QWidget *parent = 0, bool initHighlighter = true);
+    explicit QMarkdownTextEdit(QWidget *parent = nullptr, bool initHighlighter = true);
     MarkdownHighlighter *highlighter();
     QPlainTextEditSearchWidget *searchWidget();
     void setIgnoredClickUrlSchemata(QStringList ignoredUrlSchemata);
     virtual void openUrl(QString urlString);
-    QString getMarkdownUrlAtPosition(QString text, int position);
+    QString getMarkdownUrlAtPosition(const QString& text, int position);
     void initSearchFrame(QWidget *searchFrame, bool darkMode = false);
     void setAutoTextOptions(AutoTextOptions options);
     void setHighlightingEnabled(bool enabled);
-    static bool isValidUrl(QString urlString);
+    static bool isValidUrl(const QString& urlString);
     void resetMouseCursor() const;
+    void setReadOnly(bool ro);
+    void doSearch(QString &searchText,
+                  QPlainTextEditSearchWidget::SearchMode searchMode = QPlainTextEditSearchWidget::SearchMode::PlainTextMode);
+    void hideSearchWidget(bool reset);
+    void updateSettings();
 
 public slots:
     void duplicateText();
@@ -57,6 +62,9 @@ public slots:
     void hide();
     bool openLinkAtCursorPosition();
     bool handleBracketRemoval();
+    void centerTheCursor();
+    void undo();
+    void moveTextUpDown(bool up);
 
 protected:
     MarkdownHighlighter *_highlighter;
@@ -67,19 +75,25 @@ protected:
     AutoTextOptions _autoTextOptions;
     QStringList _openingCharacters;
     QStringList _closingCharacters;
+    bool _mouseButtonDown = false;
+    bool _centerCursor = false;
 
     bool eventFilter(QObject *obj, QEvent *event);
-    bool increaseSelectedTextIndention(bool reverse);
-    bool handleTabEntered(bool reverse);
-    QMap<QString, QString> parseMarkdownUrlsFromText(QString text);
+    bool increaseSelectedTextIndention(bool reverse, const QString& indentCharacters = QChar('\t'));
+    bool handleTabEntered(bool reverse, const QString& indentCharacters = QChar('\t'));
+    QMap<QString, QString> parseMarkdownUrlsFromText(const QString& text);
     bool handleReturnEntered();
-    bool handleBracketClosing(QString openingCharacter,
-                              QString closingCharacter = "");
-    bool bracketClosingCheck(QString openingCharacter,
+    bool handleBracketClosing(const QString& openingCharacter,
+                              QString closingCharacter = QLatin1String(""));
+    bool bracketClosingCheck(const QString& openingCharacter,
                              QString closingCharacter);
+    bool quotationMarkCheck(const QString& quotationCharacter);
     void focusOutEvent(QFocusEvent *event);
     void paintEvent(QPaintEvent *e);
 
 signals:
     void urlClicked(QString url);
+
+private:
+    bool handleBracketClosingUsed;
 };

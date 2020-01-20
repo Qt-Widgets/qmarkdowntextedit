@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2018 Patrizio Bekerle -- http://www.bekerle.com
+ * Copyright (c) 2014-2020 Patrizio Bekerle -- <patrizio@bekerle.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
