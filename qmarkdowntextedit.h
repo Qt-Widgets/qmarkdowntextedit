@@ -14,17 +14,17 @@
 
 #pragma once
 
-#include <QPlainTextEdit>
 #include <QEvent>
+#include <QPlainTextEdit>
+
 #include "qplaintexteditsearchwidget.h"
 
 class MarkdownHighlighter;
 
-class QMarkdownTextEdit : public QPlainTextEdit
-{
+class QMarkdownTextEdit : public QPlainTextEdit {
     Q_OBJECT
 
-public:
+   public:
     enum AutoTextOption {
         None = 0x0000,
 
@@ -37,27 +37,29 @@ public:
 
     Q_DECLARE_FLAGS(AutoTextOptions, AutoTextOption)
 
-    explicit QMarkdownTextEdit(QWidget *parent = nullptr, bool initHighlighter = true);
+    explicit QMarkdownTextEdit(QWidget *parent = nullptr,
+                               bool initHighlighter = true);
     MarkdownHighlighter *highlighter();
     QPlainTextEditSearchWidget *searchWidget();
     void setIgnoredClickUrlSchemata(QStringList ignoredUrlSchemata);
-    virtual void openUrl(QString urlString);
-    QString getMarkdownUrlAtPosition(const QString& text, int position);
+    virtual void openUrl(const QString &urlString);
+    QString getMarkdownUrlAtPosition(const QString &text, int position);
     void initSearchFrame(QWidget *searchFrame, bool darkMode = false);
     void setAutoTextOptions(AutoTextOptions options);
     void setHighlightingEnabled(bool enabled);
-    static bool isValidUrl(const QString& urlString);
+    static bool isValidUrl(const QString &urlString);
     void resetMouseCursor() const;
     void setReadOnly(bool ro);
     void doSearch(QString &searchText,
-                  QPlainTextEditSearchWidget::SearchMode searchMode = QPlainTextEditSearchWidget::SearchMode::PlainTextMode);
+                  QPlainTextEditSearchWidget::SearchMode searchMode =
+                      QPlainTextEditSearchWidget::SearchMode::PlainTextMode);
     void hideSearchWidget(bool reset);
     void updateSettings();
 
-public slots:
+   public slots:
     void duplicateText();
-    void setText(const QString & text);
-    void setPlainText(const QString & text);
+    void setText(const QString &text);
+    void setPlainText(const QString &text);
     void adjustRightMargin();
     void hide();
     bool openLinkAtCursorPosition();
@@ -66,34 +68,34 @@ public slots:
     void undo();
     void moveTextUpDown(bool up);
 
-protected:
+   protected:
     MarkdownHighlighter *_highlighter;
     bool _highlightingEnabled;
     QStringList _ignoredClickUrlSchemata;
     QPlainTextEditSearchWidget *_searchWidget;
     QWidget *_searchFrame;
     AutoTextOptions _autoTextOptions;
-    QStringList _openingCharacters;
-    QStringList _closingCharacters;
     bool _mouseButtonDown = false;
     bool _centerCursor = false;
 
     bool eventFilter(QObject *obj, QEvent *event);
-    bool increaseSelectedTextIndention(bool reverse, const QString& indentCharacters = QChar('\t'));
-    bool handleTabEntered(bool reverse, const QString& indentCharacters = QChar('\t'));
-    QMap<QString, QString> parseMarkdownUrlsFromText(const QString& text);
+    bool increaseSelectedTextIndention(
+        bool reverse, const QString &indentCharacters = QChar('\t'));
+    bool handleTabEntered(bool reverse,
+                          const QString &indentCharacters = QChar('\t'));
+    QMap<QString, QString> parseMarkdownUrlsFromText(const QString &text);
     bool handleReturnEntered();
-    bool handleBracketClosing(const QString& openingCharacter,
-                              QString closingCharacter = QLatin1String(""));
-    bool bracketClosingCheck(const QString& openingCharacter,
-                             QString closingCharacter);
-    bool quotationMarkCheck(const QString& quotationCharacter);
+    bool handleBracketClosing(const QChar openingCharacter,
+                              QChar closingCharacter = QChar());
+    bool bracketClosingCheck(const QChar openingCharacter,
+                             QChar closingCharacter);
+    bool quotationMarkCheck(const QChar quotationCharacter);
     void focusOutEvent(QFocusEvent *event);
     void paintEvent(QPaintEvent *e);
 
-signals:
+   signals:
     void urlClicked(QString url);
 
-private:
-    bool handleBracketClosingUsed;
+   private:
+    bool _handleBracketClosingUsed;
 };
